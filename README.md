@@ -1,6 +1,6 @@
-## ### Home Automation Switch using Raw Sockets
+## Home Automation Switch using Raw Sockets
 
-## ### Project Overview
+## Project Overview
 The **Home Automation Switch using Raw Sockets** is a client–server based application designed to control and monitor household appliances over a network. The system provides a **Graphical User Interface (GUI)** for both the **server** and **client**, enabling real-time, synchronized control of appliances such as lights, fans, air conditioners, heaters, and more.
 
 The application supports **multiple clients connecting simultaneously to a single server**, allowing different users to control appliances concurrently. Any action performed by one client is instantly reflected on the server and all other connected clients, ensuring consistent and real-time state synchronization across the system.
@@ -9,7 +9,7 @@ The server follows a **multi-threaded architecture**, where each connected clien
 
 ---
 
-## ### Key Features
+## Key Features
 - Multi-client support with a centralized server  
 - Real-time appliance state synchronization  
 - Graphical User Interface (GUI) for both client and server  
@@ -23,7 +23,7 @@ The server follows a **multi-threaded architecture**, where each connected clien
 
 ---
 
-## ### System Architecture
+## System Architecture
 The system is based on a **client–server architecture** implemented using **raw TCP sockets**.
 
 ### Server:
@@ -42,7 +42,7 @@ The system is based on a **client–server architecture** implemented using **ra
 
 ---
 
-## ### Security Implementation (SSL)
+## Security Implementation (SSL)
 To ensure secure communication, **SSL (Secure Socket Layer)** is implemented between the client and server.
 
 ### Security Features:
@@ -55,7 +55,7 @@ All communication between the client and server is encrypted using SSL certifica
 
 ---
 
-## ### Technologies Used
+## Technologies Used
 - **Programming Language:** Python  
 - **Networking:** Raw TCP Sockets  
 - **Security:** SSL / TLS  
@@ -64,7 +64,7 @@ All communication between the client and server is encrypted using SSL certifica
 
 ---
 
-## ### How to Generate SSL Certificates
+## How to Generate SSL Certificates
 
 The project uses **self-signed SSL certificates** for secure communication.  
 Follow the steps below to generate the required certificates.
@@ -100,9 +100,9 @@ Client Directory:
 -client.key
 -ca.crt
 
-## ### How to Run the Project
+## How to Run the Project
 
-## Prerequisites
+### Prerequisites
 -Python 3.8 or above
 -OpenSSL installed
 -All SSL certificates generated and placed correctly
