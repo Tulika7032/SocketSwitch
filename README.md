@@ -1,4 +1,4 @@
-# ### Home Automation Switch using Raw Sockets
+## ### Home Automation Switch using Raw Sockets
 
 ## ### Project Overview
 The **Home Automation Switch using Raw Sockets** is a client–server based application designed to control and monitor household appliances over a network. The system provides a **Graphical User Interface (GUI)** for both the **server** and **client**, enabling real-time, synchronized control of appliances such as lights, fans, air conditioners, heaters, and more.
@@ -100,9 +100,9 @@ Client Directory:
 -client.key
 -ca.crt
 
-### How to Run the Project
+## ### How to Run the Project
 
-## ### Prerequisites
+## Prerequisites
 -Python 3.8 or above
 -OpenSSL installed
 -All SSL certificates generated and placed correctly
