@@ -91,21 +91,21 @@ openssl x509 -req -in client.csr -CA ca.crt -CAkey ca.key -CAcreateserial -out c
 Ensure the following files are placed in the correct directories:
 
 Server Directory:
--server.crt
--server.key
--ca.crt
+- server.crt
+- server.key
+- ca.crt
 
 Client Directory:
--client.crt
--client.key
--ca.crt
+- client.crt
+- client.key
+- ca.crt
 
 ## How to Run the Project
 
 ### Prerequisites
--Python 3.8 or above
--OpenSSL installed
--All SSL certificates generated and placed correctly
+- Python 3.8 or above
+- OpenSSL installed
+- All SSL certificates generated and placed correctly
 
 ### Step 1: Start the Server
 ```bash
