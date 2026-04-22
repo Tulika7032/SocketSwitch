@@ -19,15 +19,12 @@ print("[CLIENT CONNECTED]")
 appliances = ["LIGHT", "AC", "FAN 1", "FAN 2", "GYSER", "HEATER"]
 appliance_states = {a: False for a in appliances}
 
-
 # ----------------MESSAGE HANDLER ---------------- #
-
 def handle_status(data):
     log_box.insert(tk.END, f"{data}\n")
     for line in data.splitlines()[1:]:
         name, state = line.rsplit(" ", 1)
         appliance_states[name] = (state.upper() == "ON")
-
 
 def handle_added(data):
     name = data.replace("ADDED", "").strip()
@@ -36,14 +33,12 @@ def handle_added(data):
         appliance_states[name] = False
         draw_appliance_buttons()
 
-
 def handle_removed(data):
     name = data.replace(" REMOVED", "").strip()
     if name in appliances:
         appliances.remove(name)
         appliance_states.pop(name, None)
         draw_appliance_buttons()
-
 
 def handle_update(data):
     name, state = data.rsplit(" ", 1)
@@ -52,18 +47,15 @@ def handle_update(data):
     appliance_states[name] = (state.upper() == "ON")
     draw_appliance_buttons()
 
-
 def handle_default(data):
     log_box.insert(tk.END, f"{data}\n")
 
-
-# Dispatcher (NEW LOGIC)
+# Dispatcher
 message_router = [
     ("[STATUS]", handle_status),
     ("ADDED", handle_added),
     ("REMOVED", handle_removed)
 ]
-
 
 def receive_messages():
     while True:
@@ -71,10 +63,9 @@ def receive_messages():
             data = client_socket.recv(1024).decode()
             if not data:
                 break
-
             handled = False
 
-            # Route messages (NEW APPROACH)
+            # Route messages 
             for key, func in message_router:
                 if key in data:
                     func(data)
@@ -94,7 +85,6 @@ def receive_messages():
         except Exception as e:
             log_box.insert(tk.END, f"[ERROR] {e}\n")
             break
-
 
 threading.Thread(target=receive_messages, daemon=True).start()
 
@@ -125,7 +115,6 @@ def dark_input_dialog(title, prompt, is_password=False):
     root.wait_window(dialog)
     return dialog.user_input
 
-
 def send_cmd(cmd):
     try:
         client_socket.send(cmd.encode())
@@ -133,13 +122,11 @@ def send_cmd(cmd):
     except:
         log_box.insert(tk.END, "[ERROR] Cannot send command\n")
 
-
 def toggle_appliance(appliance):
     appliance_states[appliance] = not appliance_states[appliance]
     state = "ON" if appliance_states[appliance] else "OFF"
     send_cmd(f"{appliance.upper()} {state}")
     draw_appliance_buttons()
-
 
 def draw_appliance_buttons():
     for widget in appliance_frame.winfo_children():
@@ -159,18 +146,15 @@ def draw_appliance_buttons():
 
         btn.bind("<Button-1>", lambda e, a=appliance: toggle_appliance(a))
 
-
 def on_add():
     val = dark_input_dialog("Add Appliance", "Appliance name:")
     if val:
         send_cmd(f"ADD {val.upper()}")
 
-
 def on_remove():
     val = dark_input_dialog("Remove Appliance", "Appliance name:")
     if val:
         send_cmd(f"REMOVE {val.upper()}")
-
 
 def on_timer():
     a = dark_input_dialog("Timer", "Appliance?")
@@ -179,7 +163,6 @@ def on_timer():
     if a and s and t:
         send_cmd(f"TIMER {a.upper()} {s.upper()} {t}")
 
-
 def on_schedule():
     a = dark_input_dialog("Schedule", "Appliance?")
     s = dark_input_dialog("Schedule", "ON or OFF?")
@@ -187,10 +170,8 @@ def on_schedule():
     if a and s and t:
         send_cmd(f"SCHEDULE {a.upper()} {s.upper()} {t}")
 
-
 def on_status():
     send_cmd("STATUS")
-
 
 root = tk.Tk()
 root.title("Home Automation Switch")
@@ -211,12 +192,10 @@ appliance_frame.pack()
 btn_frame = tk.Frame(root, bg="black")
 btn_frame.pack(pady=15)
 
-
 def styled_button(txt, cmd, color):
     return tk.Button(btn_frame, text=txt, bg=color, fg="black",
                      font=("Arial", 11, "bold"),
                      width=12, height=2, command=cmd)
-
 
 styled_button("Set Timer", on_timer, "#4FC3F7").grid(row=0, column=0, padx=5, pady=5)
 styled_button("ADD NEW", on_add, "#CE93D8").grid(row=0, column=1, padx=5, pady=5)

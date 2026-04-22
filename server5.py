@@ -9,9 +9,7 @@ import time
 HOST = "0.0.0.0"
 PORT = 9999
 
-
 # ---------------- BACKEND ENGINE ---------------- #
-
 class ServerCore:
     def __init__(self):
         self.clients = []
@@ -31,7 +29,6 @@ class ServerCore:
         threading.Thread(target=self.scheduler_loop, daemon=True).start()
 
     # ---------- NETWORK ---------- #
-
     def start(self):
         threading.Thread(target=self.run_server, daemon=True).start()
         log("[SERVER STARTED]")
@@ -82,7 +79,6 @@ class ServerCore:
                 self.clients.remove(c)
 
     # ---------- COMMAND ROUTER ---------- #
-
     def dispatch(self, msg, conn):
         parts = msg.split()
         if not parts:
@@ -95,7 +91,6 @@ class ServerCore:
             self.direct(parts)
 
     # ---------- COMMANDS ---------- #
-
     def login(self, parts, conn):
         if len(parts) != 3:
             return
@@ -167,7 +162,6 @@ class ServerCore:
             self.broadcast(f"{name} {state}")
 
     # ---------- SCHEDULER ---------- #
-
     def scheduler_loop(self):
         while True:
             now = datetime.now().strftime("%H:%M")
@@ -184,9 +178,7 @@ class ServerCore:
 
             time.sleep(1)
 
-
 core = ServerCore()
-
 
 root = tk.Tk()
 root.title("Home Automation Switch Server")
@@ -203,7 +195,6 @@ appliances = ["LIGHT", "AC", "FAN 1", "FAN 2", "GYSER", "HEATER"]
 
 appliance_frame = tk.Frame(root, bg="black")
 appliance_frame.pack(pady=10)
-
 
 def draw_appliances():
     for widget in appliance_frame.winfo_children():
@@ -222,18 +213,15 @@ def draw_appliances():
                         command=lambda a=appliance: toggle(a))
         btn.grid(row=i, column=1, padx=10, pady=4)
 
-
 def toggle(appliance):
     core.appliances[appliance] = not core.appliances[appliance]
     draw_appliances()
     core.broadcast(f"{appliance} {'ON' if core.appliances[appliance] else 'OFF'}")
 
-
 def log(message):
     print(message)
     log_box.insert(tk.END, f"{message}\n")
     log_box.see(tk.END)
-
 
 btn_frame = tk.Frame(root, bg="black")
 btn_frame.pack(pady=15)
